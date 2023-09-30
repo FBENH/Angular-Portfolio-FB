@@ -2833,3 +2833,16 @@ h4.package {
 .no-cursor .cursor {
     background-color: transparent;
 }
+
+/* ---------------------------------------- */
+.portfolio-item-container{
+    padding: 20px;
+}
+
+.portfolio-item-container h2{
+    text-align: center;
+    margin: 10px;
+}
+.portfolio-item-container h3{
+    margin: 10px 0;
+}

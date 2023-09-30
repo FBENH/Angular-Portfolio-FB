@@ -83,14 +83,72 @@
     });
 
     //Portfolio Modal
-    $(document).on('click', '.open-project', function() {
-        var projectUrl = $(this).attr("href");
+     $(document).on('click', '.open-project', function() {
+        
+       
+        
+        let projectDataJSON = $(this).attr('data-project');        
+        let projectData = JSON.parse(projectDataJSON);        
+
+        let existingContainer = $('.content-blocks.pop').find('.portfolio-item-container');
+        if (existingContainer.length > 0) {
+            existingContainer.remove();
+        }
+        
         $('.inline-menu-container').removeClass('showx');
         $('.sidebar-menu').addClass('hidex');
         $('.content-blocks.pop').addClass('showx');
-        $('.content-blocks.pop section').load(projectUrl + ' .load-data > *');
+        
+        
+
+        const container = document.createElement('div');
+        container.classList.add('portfolio-item-container');
+        
+        const titulo = document.createElement('h2');
+        titulo.innerText = projectData.titulo;
+        container.append(titulo);
+
+        const imagen = document.createElement('img');
+        imagen.src = projectData.largeImage;
+        imagen.alt = projectData.largeImageAlt;
+        container.append(imagen);
+
+        const descripcion = document.createElement('p');
+        descripcion.innerText = projectData.projectText;
+        container.append(descripcion);
+
+        const tecnologias = document.createElement('h3');
+        tecnologias.innerText = "Tecnologías";
+        container.append(tecnologias);
+
+        const ul = document.createElement('ul');
+        projectData.tecnologias.forEach(el=>{
+            const li = document.createElement('li');
+            li.innerText = el;
+            ul.appendChild(li);
+        });
+        container.append(ul);
+
+        const ver = document.createElement('h3');
+        ver.innerText = "Ver online: ";
+        container.append(ver);
+
+        const irAPagina = document.createElement('span');
+        irAPagina.innerHTML = `<strong>Link: </strong><a target="_blank" href="${projectData.link}"> Ir a la página </a><br>`;
+        container.append(irAPagina);
+
+        const testUser = document.createElement('span');
+        testUser.innerHTML = `<strong>Usuario de prueba: </strong>${projectData.testUser}<br>`;
+        container.append(testUser);
+
+        const testPass = document.createElement('span');
+        testPass.innerHTML = `<strong>Contraseña de prueba: </strong>${projectData.testPass}`;
+        container.append(testPass);
+
+        $('.content-blocks.pop').append(container);
+
         return false;
-    });
+    }); 
 
     //Blog post Modal
     $(document).on('click','.open-post', function() {
